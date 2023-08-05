@@ -35,7 +35,7 @@ date 2023
 <details><summary>Files and Directories Commands</summary>
 <p>
 
-## Basics Commands with files and directories
+## Basic Commands with files and directories
 
 ```bash
 # Go to '/var/www/'
@@ -56,6 +56,10 @@ cd ~
 ```bash
 # Go to home directory of “user”
 cd ~user                                         
+```
+```bash
+# Go to the last directory
+cd -                                         
 ```
 ```bash
 # Print current directory path
@@ -86,8 +90,8 @@ ls -a|--all
 ls -lR                                          
 ```
 ```bash
-# Show hidden files and directories in the current directory
-ls -a                                          
+# Show directories by modification time, newest first
+ls -t                                         
 ```
 ```bash
 # Create a directory called ‘test’ in the current path
@@ -101,34 +105,126 @@ mkdir dir1 dir2
 # Create a directory tree
 mkdir -p /var/www/test/dir
 ```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
-```bash
-# Show detailed representation of files and directories in the current directory
-ls -l                                          
-```
 --------------------------------------------------------------------------------------------------
 
 </p>
 </details>  
+
+
+ <details><summary>Files Commands</summary>
+<p>
+
+### Creating, Rmoving, Moving, files
+--------------------------------------------------------------------------------------------------
+```bash
+# Create file or update existing files 
+touch file.txt
+```
+```bash
+# Create or update more than one file
+touch file1.txt file2.txt file3.txt
+```
+```bash
+# Create multiple files
+touch {file1,file2,file3}.txt
+```
+```bash
+# Create file1, file2 and file3 multiple files
+touch file{1..3} 
+```
+```bash
+# Copy files, Copy file1 in file2
+cp file1 file2
+```
+```bash
+# Delete the file named file
+rm -f file
+```
+```bash
+# Delete a directory named ‘dir’ and all of its contents recursively
+rm -rf dir
+```
+```bash
+# Rename or move a file or directory
+mv file.txt /path/file.txt
+```
+```bash
+# Rename or move a file or directory
+mv file.txt newfile.txt
+```
+### Linking files
+--------------------------------------------------------------------------------------------------
+We have in CentOS Linux two types of Linking first type is hard link second type is soft (sympolic) link
+```bash
+# Hard Link
+ln file1 /path/file2
+```
+```bash
+# Sympolic Link
+ln -s /path/file1 /path/file2
+```
+```bash
+# Show where symbolic links are pointing
+ln -l
+```
+### Reading and Writing Files
+--------------------------------------------------------------------------------------------------
+```bash
+# Determine file type
+file
+```
+```bash
+# Print all contents
+cat file.txt
+```
+```bash
+# Print some contents
+less file.txt
+```
+```bash
+# View the contents of a file one page
+more file.txt
+```
+```bash
+#  Print the default : top 10 lines of file
+head file.txt
+```
+```bash
+#  Print the default : bottom 10 lines of file
+tail file.txt
+```
+```bash
+#  Open the file in vim editor
+vim file.txt
+```
+```bash
+#  Open the file in nano editor
+nano file.txt
+```
+```bash
+#  Count inside file, list number of lines words and characters in the file
+wc file.txt
+```
+```bash
+#  Count the lines in the file
+wc -l file.txt
+```
+```bash
+#  Count the characters in the file
+wc -c file.txt
+```
+```bash
+#  Overwrite file with content
+echo "New Line" > file.txt
+```
+```bash
+#  Append to file with content
+echo "New Line">> file.txt
+```
+--------------------------------------------------------------------------------------------------
+
+</p>
+</details>
 
 
  <details><summary>Permission </summary>
