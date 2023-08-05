@@ -86,12 +86,16 @@ ls -a
 ls -a|--all                                                  
 ```
 ```bash
+# Show directories by modification time, newest first
+ls -t                                         
+```
+```bash
 # List all files recursively in a directory
 ls -lR                                          
 ```
 ```bash
-# Show directories by modification time, newest first
-ls -t                                         
+ # Lists all files recursively in a directory, including hidden files, and saves the output to standard output
+ls -laR                                         
 ```
 ```bash
 # Create a directory called ‘test’ in the current path
@@ -404,9 +408,6 @@ chmod 777 file
 chmod 4655 <file> 
 ```
 ```bash
-# Setgid on dir, all dir/files in it will get same ownership as parent dir. It doesn't matter who is creating
-```
-```bash
 # Setting setgid bit
 chmod g+s <dir/file> 
 ```
@@ -433,47 +434,119 @@ chown USER file
 <details><summary>User Administration</summary>
 <p>
 
+### User and Group Management
+
+### User Management
 ```bash
-useradd -g itadmin -c "DB User" -u 1135 -s "/bin/sh" -d /home/techguy1 
-#In the above command, we are creating the new user with custom options as simple "#useradd <user>" will create with default setting. The -g (group) -c (description) -u (user id) -s (which shell to be assigned) -d (landed home dir)
+# In this command, we are creating the new user with custom options as simple "#useradd <user>" will create with default setting. The -g (group) -c (description) -u (user id) -s (which shell to be assigned) -d (landed home dir)
+useradd -g itiadmin -c "DB User" -u 1135 -s "/bin/sh" -d /home/techguy1 
 ```
 ```bash
-useradd -g <primary group> -G <secondary group> <user> # assign the user primary and secondary group
-
+# assign the user primary and secondary group
+useradd -g <primary group> -G <secondary group> <user> 
 ```
 ```bash
-passwd -l <user> #locking password of user
-
+# assign the user primary and secondary group
+useradd -g <primary group> -G <secondary group> <user> 
 ```
 ```bash
-passwd -u <user> #unlocking password of user
-
+# assign the user primary and secondary group
+useradd -g <primary group> -G <secondary group> <user> 
 ```
 ```bash
-passwd -e <user> #expire password 
+# Add the user "user" to the group "group".
+usermod -aG groub user
+```
+```bash
+# Add the user "username" to the "wheel" group, which typically grants administrative privileges.
+usermod -aG wheel user
+```
+```bash
+# Locking user
+usermod -L user
+```
+```bash
+# Unlocking user
+usermod -U user
+```
+```bash
+# Delete user
+userdel user
+```
+```bash
+# Command-line tool for deleting a user and also deletes his home directory.
+userdel -r user
+```
+```bash
+# Displays information about the user with the specified username.
+id user
+```
+```bash
+# Displays all the users exists in the os.
+cat /etc/passwd
+```
+--------------------------------------------------------------------------------------------------
+### Group Management
 
+
+```bash
+ # Command-line tool for creating a new group.
+ groupadd groupname
+```
+```bash
+# removes an existing group
+groupdel groupname
+```
+```bash
+# Lists the groups that the current user belongs to.
+ groups 	
+```
+```bash
+# Displays information about the group 
+id group
+```
+```bash
+# Displays the system's group database
+cat /etc/group
+```
+--------------------------------------------------------------------------------------------------
+### Password Management
+
+```bash
+#locking password of user
+passwd -l <user> 
+```
+```bash
+#unlocking password of user
+passwd -u <user> 
+```
+```bash
+#expire password 
+passwd -e <user> 
 ```
 ```bash
 echo 'myPassword123' | sudo passwd --stdin <user> 
-
 ```
 ```bash
-passwd -x -1 <user> #Turnoff password expiry
-
+#Turnoff password expiry
+passwd -x -1 <user> 
 ```
 ```bash
-usermod -L <user> #locking user
-
+#locking user
+usermod -L <user> 
 ```
 ```bash
-usermod -U <user> #unlocking user
-
+#unlocking user
+usermod -U <user> 
 ```
 ```bash
-chage #set password expiry
-
+#set password expiry
+chage 
 ```
-
+```bash
+# Changes the password aging settings for the user "user03".
+chage -m 0 -M 90 -W 7 -I 14 user03 
+```
 </p>
 </details>
  
@@ -482,21 +555,29 @@ chage #set password expiry
 <p>
 
 ```bash
-setfacl -m u:priya:rw <file> #assiging the a new user 'priya' with read/write permission on the file. -m (modifying) -u (user)
+# Displays the ACLs for the specified file.
+getfacl <file> 
 ```
 ```bash
-setfacl -m mask:r <file> #setting mask on file
+# Assiging the a new user 'omar' with read/write permission on the file. -m (modifying) -u (user)
+setfacl -m u:omar:rw <file> 
 ```
 ```bash
-setfacl -d -m u:priya:rw <dir> #setting ACL for directory
+# Setting mask on file
+setfacl -m mask:r <file> 
 ```
 ```bash
-getfacl -R <dir> > permissions.acl #BackUp ACL's in file having all info related ownership/dir inside the dir,subdir,files
+# Setting ACL for directory
+setfacl -d -m u:omar:rw <dir> 
 ```
 ```bash
-setfacl --restore=permissions.acl #Restore the Permissions/Ownership
+# BackUp ACL's in file having all info related ownership/dir inside the dir,subdir,files
+getfacl -R <dir> > permissions.acl
 ```
-
+```bash
+# Restore the Permissions/Ownership
+setfacl --restore=permissions.acl 
+```
 </p>
 </details>
 
