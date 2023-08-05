@@ -5,7 +5,7 @@ Explore the power of Linux (CentOS) commands for efficient data engineering. Thi
 **Significantly and objectively in Data Engineering**
 Welcome to the CentOS Red Hat Linux Command Cheat Sheet repository! Your ultimate quick reference guide for mastering essential commands, tips, and tricks to efficiently manage CentOS and Red Hat systems specifically for Data Engineering. Elevate your command-line skills and streamline administration with our comprehensive cheat sheet. Let's simplify CentOS and Red Hat Linux together! 
 
-# Let's dive into CentOS Commands
+# Let's dive into RedHat-CentOS Linux Commands
 <details><summary>System Information</summary>
 <p>
 
