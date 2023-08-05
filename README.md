@@ -343,32 +343,88 @@ grep 'foo' /directory -r|--recursive
 --------------------------------------------------------------------------------------------------
 </p>
 </details>
- <details><summary>Permission </summary>
+ <details><summary>Permissions</summary>
 <p>
 
-```bash
-#set suid bit such as -rwSr-xr-x. capital S means (rws)
-chmod 4655 <file> 
+  
+chmod u[+-=](rwx)or(
+chown ahmed:data data
+## File Permissions
 
+| # | Permission              | rwx | Binary |
+| - | -                       | -   | -      |
+| 7 | read, write and execute | rwx | 111    |
+| 6 | read and write          | rw- | 110    |
+| 5 | read and execute        | r-x | 101    |
+| 4 | read only               | r-- | 100    |
+| 3 | write and execute       | -wx | 011    |
+| 2 | write only              | -w- | 010    |
+| 1 | execute only            | --x | 001    |
+| 0 | none                    | --- | 000    |
+
+For a directory, execute means you can enter a directory.
+
+| User | Group | Others | Description                                                                                          |
+| -    | -     | -      | -                                                                                                    |
+| 6    | 4     | 4      | User can read and write, everyone else can read (Default file permissions)                           |
+| 7    | 5     | 5      | User can read, write and execute, everyone else can read and execute (Default directory permissions) |
+
+- u - User
+- g - Group
+- o - Others
+- a - All of the above
+
+
+```bash
+# List file permissions
+ls -l 
 ```
 ```bash
-#Setgid on dir, all dir/files in it will get same ownership as parent dir. It doesn't matter who is creating
+# Give the user execute permission
+chmod u+x file.sh 
 ```
 ```bash
-#setting setgid bit
+# Give the group execute permission
+chmod g+x file 
+```
+```bash
+# Take away the user and group execute permission
+chmod u-x,g-x file
+```
+```bash
+# Give everybody reading permission
+chmod u+r,g+r,o+r file
+```
+```bash
+# Give everybody reading permission by another way
+chmod 777 file 
+```
+```bash
+# Set suid bit such as -rwSr-xr-x. capital S means (rws)
+chmod 4655 <file> 
+```
+```bash
+# Setgid on dir, all dir/files in it will get same ownership as parent dir. It doesn't matter who is creating
+```
+```bash
+# Setting setgid bit
 chmod g+s <dir/file> 
 ```
 ```bash
-#setting sticky bit such as drwxrwxrwt. small t means (rwxt)
+# Setting sticky bit such as drwxrwxrwt. small t means (rwxt)
 chmod 1777 <dir> 
 ```
 ```bash
-#setting sticky bit such as drwxrwxrwT. capital T means (rwt)
+# Setting sticky bit such as drwxrwxrwT. capital T means (rwt)
 chmod 1776 <dir> 
 ```
 ```bash
-#asssigning recursive permission of all files/dir in  target dir
+# Asssigning recursive permission of all files/dir in  target dir
 chown -R <user>:<group> <dir> 
+```
+```bash
+# Change the owner
+chown USER file 
 ```
 </p>
 </details>
