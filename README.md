@@ -6,7 +6,11 @@ Explore the power of Linux (CentOS) commands for efficient data engineering. Thi
 Welcome to the CentOS Red Hat Linux Command Cheat Sheet repository! Your ultimate quick reference guide for mastering essential commands, tips, and tricks to efficiently manage CentOS and Red Hat systems specifically for Data Engineering. Elevate your command-line skills and streamline administration with our comprehensive cheat sheet. Let's simplify CentOS and Red Hat Linux together! 
 
 # Let's dive into RedHat-CentOS Linux Commands
+<details><summary>Linux file System Hierarchy</summary>
+<img src="https://i.imgur.com/HoAqQ6H.png">
+</details>
 <details><summary>System Information</summary>
+
 <p>
 
 ```bash   
@@ -31,43 +35,95 @@ date 2023
 <details><summary>Files and Directories Commands</summary>
 <p>
 
-## Basics Commands
+## Basics Commands with files and directories
 
 ```bash
 # Go to '/var/www/'
-mkdir directoryname                                          
+cd /var/www/                                          
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Go to the upper level directory
+cd ..                                         
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Go to home directory
+cd                                           
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Another way to go to home directory
+cd ~                                       
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Go to home directory of “user”
+cd ~user                                         
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Print current directory path
+pwd                                         
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Show the contents of the current directory
+ls                                          
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Show the contents of the current directory adding characters to the names characterizing the type
+ls -F                                          
 ```
 ```bash
-# Create a directory
-mkdir directoryname                                          
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show hidden files and directories in the current directory
+ls -a                                          
+```
+```bash
+# List directories including hidden
+ls -a|--all                                                  
+```
+```bash
+# List all files recursively in a directory
+ls -lR                                          
+```
+```bash
+# Show hidden files and directories in the current directory
+ls -a                                          
+```
+```bash
+# Create a directory called ‘test’ in the current path
+mkdir test                                         
+```
+```bash
+# Create two directories simultaneously
+mkdir dir1 dir2                                         
+```
+```bash
+# Create a directory tree
+mkdir -p /var/www/test/dir
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
+```
+```bash
+# Show detailed representation of files and directories in the current directory
+ls -l                                          
 ```
 --------------------------------------------------------------------------------------------------
 
