@@ -270,7 +270,9 @@ mv dir1 /path/newdir
 mv file.txt newfile.txt
 ```
 --------------------------------------------------------------------------------------------------
-<details><summary>Search</summary><p>
+</p>
+</details>
+<details><summary>Searching</summary><p>
 
 ### Finding Files
 
@@ -341,9 +343,6 @@ grep 'foo' /directory -r|--recursive
 --------------------------------------------------------------------------------------------------
 </p>
 </details>
-</p>
-</details>
-
  <details><summary>Permission </summary>
 <p>
 
