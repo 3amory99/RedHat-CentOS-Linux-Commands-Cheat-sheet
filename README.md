@@ -35,7 +35,7 @@ date 2023
 <details><summary>Files and Directories Commands</summary>
 <p>
 
-## Basic Commands with files and directories
+### Basic Commands with files and directories
 
 ```bash
 # Go to '/var/www/'
@@ -109,9 +109,7 @@ mkdir -p /var/www/test/dir
 
 </p>
 </details>  
-
-
- <details><summary>Files Commands</summary>
+<details><summary>File Commands</summary>
 <p>
 
 ### Creating, Rmoving, Moving, files
@@ -226,6 +224,125 @@ echo "New Line">> file.txt
 </p>
 </details>
 
+<details><summary>Directory Commands</summary>
+<p>
+
+### Creating, Rmoving, Moving, Directories
+--------------------------------------------------------------------------------------------------
+```bash
+# Create Directory 
+mkdir dir
+```
+```bash
+# Create multiple Directories
+mkdir dir1 dir2 dir3 dir4
+```
+```bash
+# Create nested directory
+mkdir -p|--parents dir1/dir2
+```
+```bash
+# Create a temporary directory
+mktemp -d|--dir
+```
+```bash
+# Delete empty directory
+rmdir dir
+```
+```bash
+# Delete directory including contents
+rm -r dir
+```
+```bash
+# move a directory
+mv dir /path/dir
+```
+```bash
+# Rename a directory
+mv dir1 newdir
+```
+```bash
+# Rename and move a directory
+mv dir1 /path/newdir
+```
+```bash
+# Rename or move a file or directory
+mv file.txt newfile.txt
+```
+--------------------------------------------------------------------------------------------------
+<details><summary>Search</summary><p>
+
+### Finding Files
+
+#### locate
+Uses an index and is fast.
+
+```bash
+# Update the index
+updatedb
+```
+```bash
+# Find a file using locate command
+locate file
+```
+```bash
+# Find a text file starting with 'f'
+locate f*
+```
+
+#### find 
+It doesn't use an index and is slow.
+
+```bash
+# Find a file
+find /path -name file
+```
+```bash
+# Find a file with another way
+find /path -type f -name file
+```
+```bash
+# Find a file with case insensitive search
+find /path -iname file
+```
+```bash
+# Find all text files
+find /path -name "*.txt"
+```
+```bash
+# Find a file and delete it
+find /path -name file -delete
+```
+```bash
+# Find a directory
+find /path -type d -name dir
+```
+```bash
+# Find a symbolic link
+find /path -type l -name file
+```
+```bash
+# Find files that haven't been modified in 30 days
+find /path -type f -mtime +30
+```
+--------------------------------------------------------------------------------------------------
+
+#### Find inside Files
+*grep*
+
+```bash
+# Search for 'foo' in file 'file.txt'
+find /path -type f -mtime +30grep 'foo' /file.txt
+```
+```bash
+# Search for 'foo' in directory
+grep 'foo' /directory -r|--recursive 
+```
+--------------------------------------------------------------------------------------------------
+</p>
+</details>
+</p>
+</details>
 
  <details><summary>Permission </summary>
 <p>
