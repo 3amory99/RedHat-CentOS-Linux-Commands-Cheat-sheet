@@ -7,7 +7,7 @@ Welcome to the CentOS Red Hat Linux Command Cheat Sheet repository! Your ultimat
 
 # Let's dive into RedHat-CentOS Linux Commands
 <details><summary>Linux file System Hierarchy</summary>
-<img src="https://i.imgur.com/HoAqQ6H.png">
+<img src="https://1.bp.blogspot.com/-UQ7-sWd_J4w/WmhKIFx7_fI/AAAAAAAAHIE/tixi5SsyI5YzoJygq_JQKL50axe2cAcrQCLcBGAs/s1600/Untitled.png">
 </details>
 <details><summary>System Information</summary>
 
