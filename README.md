@@ -580,25 +580,6 @@ setfacl --restore=permissions.acl
 ```
 </p>
 </details>
-
-
-<details><summary>Crontab</summary>
-<p>
-
-```bash
-crontab -l #show crontab for all users
-```
-```bash
-crontab -u <user> -l #show crontab for specific user
-```
-```bash
-crontab -e #add cron entry in crontab file
-```
-
-</p>
-</details>
-
-
 <details><summary>Process</summary>
 <p>
 
