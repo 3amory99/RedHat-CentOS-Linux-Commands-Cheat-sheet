@@ -549,11 +549,9 @@ chage -m 0 -M 90 -W 7 -I 14 user03
 ```
 </p>
 </details>
- 
-
 <details><summary>Access Control Lists (ACLs)</summary>
 <p>
-
+  
 ```bash
 # Displays the ACLs for the specified file.
 getfacl <file> 
