@@ -603,88 +603,195 @@ crontab -e #add cron entry in crontab file
 <p>
 
 ```bash
-ps -a #all terminal 
+# List all processes interactively
+top  
 ```
 ```bash
-ps -e #list of all the processes
+# List all processes interactively
+htop  
 ```
 ```bash
-ps -o #customer properties
-
+# All terminal
+ps 
 ```
 ```bash
-ps -ao tty,comm,pid,%mem,%cpu #<command/script> & #run the task in background
-
+# All process
+ps aux | grep 
+```
+```bash
+# All terminal
+ps -a  
+```
+```bash
+# List of all the processes
+ps -e 
+```
+```bash
+# Customer properties
+ps -o 
+```
+```bash
+# <command/script> & #run the task in background
+ps -ao tty,comm,pid,%mem,%cpu 
 ```
 ```bash
 ps -fp $(pgrep -d, -x logrotate)
-
 ```
 ```bash
 pgrep -u <userid> unison
-
 ```
 ```bash
-ps -p <pid> -o etime #process execution time
-
+# Process execution time
+ps -p <pid> -o etime 
 ```
 ```bash
 ps -eo user,pid,ppid,%mem,%cpu --sort=-%cpu | head
-
 ```
 ```bash
 ps lax
-
 ```
 ```bash
 ps fax
-
 ```
-
-
+```bash
+# Sleep for 30 seconds and move the process into the background
+sleep 30 &
+```
+```bash
+# List all background jobs
+jobs
+```
+```bash
+# Resume a suspended process and run in the background
+bg
+```
+```bash
+# Bring the last background process to the foreground
+fg
+```
+```bash
+# Change process priority by name
+nice -n -20 PName
+```
+```bash
+# Change process priority by PID
+renice 20 PID
+```
+```bash
+# Return the process priority of PID
+ps -o ni PID
+```
+```bash
+# Kill a process running in the foreground
+CTRL+C
+```
+```bash
+# Shut down process by PID gracefully. Sends TERM signal
+kill PID 
+```
+```bash
+# Shut down process by name gracefully. Sends TERM signal
+pkill PName 
+```
+```bash
+# Kill all process with the specified name gracefully
+killall PName 
+```
 </p>
 </details>
 
 
+<details><summary>SystemD and Services</summary>
+<p>
+
+```bash
+# Controls the systemd system and service manager
+systemctl  
+```
+```bash
+# Displays help information about systemd unit types
+systemctl -t help  
+```
+```bash
+# Lists all active systemd services on the system
+systemctl list-units -t service 
+```
+```bash
+# Starts a systemd service with the specified name
+systemctl start ___
+```
+```bash
+# Stops a systemd service with the specified name
+systemctl stop  
+```
+```bash
+# Restarts a systemd service with the specified name
+systemctl restart 
+```
+```bash
+# Reloads the configuration of a systemd service with the specified name
+systemctl reload 
+```
+```bash
+# Enables a systemd service with the specified name to start automatically at boot time
+systemctl enable
+```
+```bash
+# Disable a systemd service with the specified name to start automatically at boot time
+systemctl disable
+```
+```bash
+# Checks if a systemd service with the specified name is currently active
+systemctl is-active ___
+```
+```bash
+# Reloads the configuration of a systemd service with the specified name, or restarts it if the reload fails
+systemctl reload-or-restart ___  
+```
+```bash
+# Displays the status of the "sshd" systemd service.
+systemctl status sshd.service
+```
+</p>
+</details>
+
 <details><summary>Network</summary>
 <p>
 
-
 ```bash
 dig +trace www.google.com
-
 ```
 ```bash
 nmcli dev status
-
 ```
 ```bash
 nmcli con del <interface name>
-
 ```
 ```bash
 ip addr show <interface name>
-
 ```
 ```bash
 nmcli con show
-
 ```
 ```bash
 nmcli con add con-name <interface name> type <ethernet> ifname <interface name> ip4 <ip address> gw4 <gateway>
-
 ```
 ```bash
 nmcli con up <interface name>
-
 ```
 ```bash
 nmcli con mod <interface name> ipv4.gateway <ip address>
-
+```
+```bash
+# Displays or sets the system's hostname
+hostname 
 ```
 ```bash
 hostnamectl set-hostname <hostname>
-
+```
+```bash
+# Displays the current hostname and related information
+hostnamectl status
 ```
 ```bash
 netstat -rn
@@ -725,6 +832,58 @@ netstat -an |grep <ipaddress>.<port>|grep ESTAB|awk '{print $5}'|awk -F: '{print
 
 </p>
 </details>
+
+
+<details><summary>SSH Service</summary>
+<p>
+
+#### Secure Shell Protocol (SSH)
+
+```bash
+# Connect to hostname using your current user name over the default SSH port 22
+ssh hostname 
+```
+```bash
+# Connect to hostname using the identity file
+ssh -i identityfile.pem hostname
+```
+```bash
+# Connect to hostname using the user over the default SSH port 22
+ssh user@hostname 
+```
+```bash
+# Connect to hostname using the user over a custom port
+ssh user@hostname -p 8765
+```
+```bash
+# Create a private key and matching public key
+ssh-keygen -t rsa
+```
+```bash
+# Determines the files where the keys are saved
+ssh-keygen -f .ssh/key-with-pass
+```
+```bash
+# Copies the public key of the SSH key pair to the destination system
+ssh-copy-id -i .ssh/key-with-pass.pub user@hostname
+```
+```bash
+# Authenticate to the host system using the corresponding private key
+ssh -i .ssh/key-with-pass user@hostname 
+```
+
+```bash
+# Set default user and port in ~/.ssh/config, so you can just enter the name next time
+$ cat ~/.ssh/config
+Host name
+  User foo
+  Hostname 127.0.0.1
+  Port 8765
+$ ssh name
+```
+</p>
+</details>
+
 
 
 <details><summary>Memory</summary>
@@ -790,183 +949,34 @@ lsof | awk '{print $1}' | sort | uniq -c | sort -r -n #sort number of open files
 </p>
 </details>
 
-
-<details><summary>SFTP/SCP</summary>
-<p>
-
-```bash
-sftp -oPort=<port> <user>@<ipaddress/domain>
-
-```
-```bash
-sftp -oPort=<port> -oIdentityFile=<path to key> <user>@<ipaddress/domain>
-
-```
-```bash
-sftp -o KexAlgorithms=<keyExchangeAlgo> -o HostKeyAlgorithms=<HostKeyAlgoName> -oIdentityFile=<path to key> -oPort=<port> <user>@<domain/ipaddress>
-
-```
-```bash
-sftp -oPort=<port> -o KexAlgorithms=diffie-hellman-group14-sha1 -o HostKeyAlgorithms=+ssh-dss -oIdentityfile=<path to key> <user>@<domain/ipaddress>
-
-```
-```bash
-scp -P <port> <path to src file> <user>@<domain/ipaddress>:<target path> #send the file to target system
-
-```
-```bash
-scp -P <port> <user>@<domain/ipaddress>:<src file path> <target file path locally> #fetch/download file from the target system
-
-```
-
-```bash
-scp -r /path/to/local/source user@ssh.example.com:/path/to/remote/destination #send dir from the target system
-
-```
-
-```bash
-scp -r user@ssh.example.com:/path/to/remote/source /path/to/local/destination #fetch/download dirctory from the target system
-
-```
-
-</p>
-</details>
-
-
-<details><summary>Bolt</summary>
-<p>
-
-<i>For the --tmpdir flag we can use the home directory path of the remote user which will logged in on the behalf of the bolt. At some time /tmp is not executable due to which the command gets failed. (~mizz - will be confirm) </i>
-
-```bash
-bolt command run "<command>"  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets @<ipaddress/hostname list file>  -u <user>
-
-```
-```bash
-bolt command run "<command>"  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets <ipaddress/hostname separate by ,>  -u <user>
-
-```
-```bash
-bolt script run <script>  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets @<ipaddress/hostname list file>  -u <user>
-
-```
-```bash
-bolt script run <script>  --no-host-key-check --tmpdir=/tmp -p <password>  --tty --targets <ipaddress/hostname separate by ,>  -u <user>
-
-```
-
-</p>
-</details>
-
-
-<details><summary>Sed</summary>
-<p>
-
-```bash
-sed -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be stdout
-
-```
-```bash
-sed -i -n -e "/<$hostname>/,/ismail.com/ p" <targetfile> #replace the string by variable, result will be saved in target file
-
-```
-```bash
-sed -i 's/stringtoreplace/newstring/g' myfile.txt #replace the string from the file globally
-
-```
-
-</p>
-</details>
-
-
-<details><summary>find</summary>
-<p>
-
-```bash
-find /tmp/* -mtime +7 -exec rm {} \; #remove files from dir "tmp/" that are older than 7 days 
-
-```
-```bash
-find /home/ -type f -name ".errors*.gz" -mtime +7 -exec rm {} \; #remove files from dir "tmp/" that are older than 7 days - with filename
-
-```
-```bash
-find /home/ -type f -size +500M -name "*tempfile*" -exec du -sh {} \; #found the tempfile that has file size >500MB
-
-```
-```bash
-find /home/ -type f -size +1G -exec ls -lh {} \; | awk '{ print $9 "|| Size : " $5 }' #find output in custom defined format like in this "dirname || Size:_"
-
-```
-
-```bash
-#Combine find exec multiple commands
-find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
-``` 
-
-```bash
-#Combine find exec multiple commands
-find /tmp/dir1/ -type f -exec chown root:root {} \; -exec chmod o+x {} \;
-```
-```bash 
-#World-Writable dir
-#CIS
-find / -path /proc -prune -o -path /sys -prune -o -type d -perm -0002 -mindepth 3 -maxdepth 4 -printf "World-Writable dir %p\n" 2>/dev/null
-```
-
-
-```bash 
-#find files with permission
-find / -xdev \( -perm -4000 -o -perm -2000 \) -type f 
-#4000 for suid, 2000 for guid
-```
- 
-```bash
-#Combine find exec shell script function
-#[Ref: https://www.golinuxcloud.com/find-exec-multiple-commands-examples-unix/#:~:text=Linux%20or%20Unix.-,Find%20exec%20multiple%20commands%20syntax,%5C%3B%20or%20as%20%22%20%3B%20%22.]
-find /tmp/dir1/ -type f -exec bash -c '
-for item do
-[[ $item =~ "file1" ]] && mv -v $item ${item}_renamed
-done
-' bash {} +
-```
-
-</p>
-</details>
-
-
 <details><summary>grep</summary>
 <p>
 
-
 ```bash
-cat myfile | grep -B 1 -A 4 -i 'string one\|string two' #it will show 1 line before and 4 lines after matching the strings form myfile
-
+# It will show 1 line before and 4 lines after matching the strings form myfile
+cat myfile | grep -B 1 -A 4 -i 'string one\|string two' 
 ```
 ```bash
-grep -lr "string" * #search recursively the string from all filesystem hierarchy, as its start from which current dir you are standing and it will list files
-
+# Search recursively the string from all filesystem hierarchy, as its start from which current dir you are standing and it will list files
+grep -lr "string" * 
 ```
 ```bash
-grep -ir "string" <* or file> #search recursively the string from all filesystem hierarchy and show the content what matches - * for all files otherwise specify a single file
-
+# Search recursively the string from all filesystem hierarchy and show the content what matches - * for all files otherwise specify a single file
+grep -ir "string" <* or file> 
 ```
-
 ```bash
+# grep with -E extended regex -s with silent mode as no error message on screen
 grep -E -s "<regex>" <file>
-#grep with -E extended regex -s with silent mode as no error message on screen
-```
 
+```
 ```bash
+# grep with -P perl regex -s with silent mode as no error message on screen
 grep -P -s -- "<regex>" <file>
-#grep with -P perl regex -s with silent mode as no error message on screen
 ```
-
 ```bash
+# grep with -E extended regex -q with quite mode as no error/stdout message on screen
 grep -Eq '<regex>' <file> && grep -Eq '<regex>' file2 && result=pass
-#grep with -E extended regex -q with quite mode as no error/stdout message on screen
 ```
- 
 </p>
 </details>
 
@@ -978,122 +988,263 @@ grep -Eq '<regex>' <file> && grep -Eq '<regex>' file2 && result=pass
 #The gzip command in Linux can only be used to compress a single file. In order to compress a folder, tar + gzip (which is basically tar -z) is used.
 #ref: https://www.educative.io/edpresso/how-to-gzip-a-directory-in-linux
 ```
+--------------------------------------------------------------------------------------------------
+
+#### tar
 
 ```bash
-tar -zcvf myfolder.tar.gz myfolder #Compress folder/dir with -z in Linux
-
+# Creates a tar archive named "archive.tar" containing the specified files.
+tar cvf archive.tar file1 file2 file3 
 ```
 ```bash
-tar -tf myfolder.tar.gz #view the content of compressed file
+# Lists the contents of a tar archive without extracting it
+tar tf archive.tar 
+```
+```bash
+# Compress folder/dir with -z in Linux
+tar -zcvf myfolder.tar.gz myfolder
+```
+```bash
+# View the content of compressed file without extracting it
+tar tf myfolder.tar.gz 
 ```
 
 ```bash
-gzip filename #view the content of compressed file
+# View the content of compressed file
+gzip filename 
 ```
-
 ```bash
 unzip file.gz #uncompress the zip file
 ```
-
 </p>
 </details>
-
-<details><summary>AWK</summary>
-<p>
-
-```bash
-#Multiple Conditional Statement - Not Equal, Regex, Equal
-awk -F: '($1!="root" && $1!="sync" ) {print}' /etc/passwd
-awk -F: '($1!="root" && $1!~/^\+/) {print}' /etc/passwd
-awk -F: '($1=="virusgroup") {print $3}' /etc/group
-du -sh * | grep G | awk '($1~/[0-9]+\.?[0-9]*G$/)'
-awk '/^\s*UID_MIN/{print $2}' /etc/login.defs
-df --local -P | awk {'if (NR!=1) print $6'} #skip first or header line
-```
-```bash
-df --local -P | awk {'if (NR!=1) print $6'} #skip first or header line
-```
-```bash
-#Variable in awk statement
-awk -F: -v GID="$(awk -F: '($1=="shadow") {print $3}' /etc/group)" '($4==GID) {print $1}' /etc/passwd
-```
-```bash
-#Awk result with loop
-awk -F: -v GID="$(awk -F: '($1=="shadow") {print $3}' /etc/group)" '($4==GID) {print $1}' /etc/passwd | (while read -r usr; do
-        [ -z "$output" ] && output="\"$usr\"" || output=",\"$usr\""
-done
-```
-
-</p>
-</details>
- 
-<details><summary>XARGS</summary>
-<p>
-
-```bash
-#XARGS Application - to use last command result for next command
-df --local -P | awk {'if (NR!=1) print $6'} | xargs -I '{}' find '{}' -xdev -nouser -printf "%p has no owner\n" 2>/dev/null
-
-```
- 
-</p>
-</details>
- 
-<details><summary>stat</summary>
-<p>
-
-```bash
-stat -L -c "%A" "$dir"
-
-```
-```bash
-stat --printf='Name: %n\nPermissions: %a\n' /etc
-
-```
-```bash
-stat --printf='User: %U | Group: %G' /etc 
-
-```
-
-</p>
-</details>
-
 <details><summary>lsof</summary>
 <p>
-
 ```bash
 lsof -u <user> #list the openfiles by a user
-
 ```
-
 </p>
 </details>
+<details><summary>Bash Scripting</summary>
+<p>
+  
+## Bash Profile
 
- 
+--------------------------------------------------------------------------------------------------
+
+- bash - `.bashrc`
+- zsh - `.zshrc`
+
+```bash
+# Always run ls after cd
+function cd {
+  builtin cd "$@" && ls
+}
+
+# Prompt user before overwriting any files
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+alias rm='rm --interactive'
+
+# Always show disk usage in a human readable format
+alias df='df -h'
+alias du='du -h'
+```
+
+## Bash Script
+
+--------------------------------------------------------------------------------------------------
+
+### Variables
+
+--------------------------------------------------------------------------------------------------
+
+```bash
+#!/bin/bash
+
+foo=123                   # Initialize variable v_name with 123
+declare -i v_name=123     # Initialize an integer foo with 123
+declare -r v_name=123     # Initialize readonly variable v_name with 123
+echo $v_name              # Print variable v_name
+echo ${v_name}_'bar'      # Print variable v_name followed by _bar
+echo ${v_name:-'default'} # Print variable v_name if it exists otherwise print default
+
+export v_name             # Make v_name available to child processes
+unset v_name              # Make v_name unavailable to child processes
+```
+
+### Environment Variables
+
+--------------------------------------------------------------------------------------------------
+
+```bash
+#!/bin/bash
+
+env               # List all environment variables
+echo $PATH        # Print PATH environment variable
+export v_name=123 # Set an environment variable
+```
+
+### Functions
+
+--------------------------------------------------------------------------------------------------
+
+```bash
+#!/bin/bash
+
+greet() {
+  local world = "World"
+  echo "$1 $world"
+  return "$1 $world"
+}
+greet "Hello"
+greeting=$(greet "Hello")
+```
+
+--------------------------------------------------------------------------------------------------
+
+### Exit Codes
+
+```bash
+#!/bin/bash
+
+exit 0   # Exit the script successfully
+exit 1   # Exit the script unsuccessfully
+echo $?  # Print the last exit code
+```
+
+### Conditional Statements
+
+--------------------------------------------------------------------------------------------------
+
+#### Boolean Operators
+
+- `$v_name` - Is true
+- `!$v_name` - Is false
+
+#### Numeric Operators
+
+- `-eq` - Equals
+- `-ne` - Not equals
+- `-gt` - Greater than
+- `-ge` - Greater than or equal to
+- `-lt` - Less than
+- `-le` - Less than or equal to
+- `-e` foo.txt - Check file exists
+- `-z` foo - Check if variable exists
+
+#### String Operators
+
+- `=` - Equals
+- `==` - Equals
+- `-z` - Is null
+- `-n` - Is not null
+- `<` - Is less than in ASCII alphabetical order
+- `>` - Is greater than in ASCII alphabetical order
+
+#### If Statements
+
+--------------------------------------------------------------------------------------------------
+
+```bash
+#!/bin/bash
+
+if [[$v_name = 'bar']]; then
+  echo 'one'
+elif [[$v_name = 'bar']] || [[$v_name = 'baz']]; then
+  echo 'two'
+elif [[$v_name = 'ban']] && [[$USER = 'bat']]; then
+  echo 'three'
+else
+  echo 'four'
+fi
+```
+
+#### Inline If Statements
+
+--------------------------------------------------------------------------------------------------
+
+```bash
+#!/bin/bash
+
+[[ $USER = 'rehan' ]] && echo 'yes' || echo 'no'
+```
+--------------------------------------------------------------------------------------------------
+
+#### While Loops
+
+```bash
+#!/bin/bash
+
+declare -i counter
+counter=10
+while [$counter -gt 2]; do
+  echo The counter is $counter
+  counter=counter-1
+done
+```
+--------------------------------------------------------------------------------------------------
+
+#### For Loops
+
+```bash
+#!/bin/bash
+
+for i in {0..10..2}
+  do
+    echo "Index: $i"
+  done
+
+for filename in file1 file2 file3
+  do
+    echo "Content: " >> $filename
+  done
+
+for filename in *;
+  do
+    echo "Content: " >> $filename
+  done
+```
+--------------------------------------------------------------------------------------------------
+
+#### Case Statements
+
+```bash
+#!/bin/bash
+
+echo "What's the weather like tomorrow?"
+read weather
+
+case $weather in
+  sunny | warm ) echo "Nice weather: " $weather
+  ;;
+  cloudy | cool ) echo "Not bad weather: " $weather
+  ;;
+  rainy | cold ) echo "Terrible weather: " $weather
+  ;;
+  * ) echo "Don't understand"
+  ;;
+esac
+```
+--------------------------------------------------------------------------------------------------
+</p>
+</details>  
 <details><summary>Other</summary>
 <p>
 
 ```bash
 top -b -n 1 | head -n +5
-
 ```
 ```bash
 uptime
-
 ```
 ```bash
 sestatus #check selinux status
-
 ```
-
 ```bash
 collectl -sc -p /var/log/collectl/server1-20220411-000000.raw.gz --top --from 00:00-03:00 -oTm
 collectl -scn -p /var/log/collectl/server2-20220411-000000.raw.gz --from 00:15-00:41 --top
 collectl -scD -p server1-000000.raw.gz --from 00:00-00:55 --top iokb | grep -w 'cp\|sdb\|Wait\|Pct\|PID' | less
-
 ```
- 
 </p>
 </details>
-
-  
